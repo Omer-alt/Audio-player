@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import '../styles/AudioPlayer.css'
+import AudioControls from './AudioControls';
+
+import '../styles/AudioPlayer.css';
 
 // import {tracks} from "./Data/tracks"
 
@@ -36,7 +38,12 @@ function AudioPlayer({tracks}){
                 />
                 <h2>{title}</h2>
                 <h3>{artist}</h3>
-
+                <AudioControls
+                    isPlaying={isPlaying}
+                    onPrevClick={toPrevTrack}
+                    onNextClick={toNextTrack}
+                    onPlayPauseClick={setIsPlaying}
+                />
             </div>
         </div>
     );

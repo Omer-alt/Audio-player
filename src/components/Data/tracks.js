@@ -8,6 +8,13 @@ export  const tracks = [
     audioSrc: "fally", 
     image: monstera,
     color: "black",
+  },
+  {
+    title: "Humain",
+    artist: "Damso",
+    audioSrc: "fally", 
+    image: monstera,
+    color: "black",
   }
     
 ];
