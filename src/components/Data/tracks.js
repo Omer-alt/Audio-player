@@ -1,19 +1,21 @@
 import monstera from "./Assets/images/monstera.jpg";
-// import fally from "./Assets/music/fally.mp3"
+import mint from "./Assets/images/mint.jpg";
+import fally from "./Assets/music/fally_ipupa.mp3"
+import damso from "./Assets/music/Damso - Humain .mp3"
 
 export  const tracks = [
   {
     title: "Migrant des reves",
     artist: "Fally ipupa",
-    audioSrc: "fally", 
+    audioSrc: fally, 
     image: monstera,
     color: "black",
   },
   {
     title: "Humain",
     artist: "Damso",
-    audioSrc: "fally", 
-    image: monstera,
+    audioSrc: damso, 
+    image: mint,
     color: "black",
   }
     

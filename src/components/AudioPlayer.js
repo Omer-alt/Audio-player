@@ -8,25 +8,77 @@ import '../styles/AudioPlayer.css';
 function AudioPlayer({tracks}){
     //state
     const [trackIndex, SetTrackIndex] = useState(0);
-    const [trackProgress, SetTrackProgress] = useState(0);
+    const [trackProgress, setTrackProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     
     const {title, artist, color, image, audioSrc} = tracks[trackIndex];
 
-    //refs
+    //refs// pour contenir un objet modifiable initialise a la valeur en parametre 
     const audioRef = useRef( new Audio(audioSrc));
     const intervalRef = useRef();
     const isReady = useRef(false);
 
     const { duration } = audioRef.current;
 
+    const startTimer = () => {
+        // Clear any timers already running
+        clearInterval(intervalRef.current);
+    
+        intervalRef.current = setInterval(() => {
+          if (audioRef.current.ended) {
+            toNextTrack();
+          } else {
+            setTrackProgress(audioRef.current.currentTime);
+          }
+        }, [1000]);
+    };
+    
+
     const toPrevTrack = () =>{ 
-        console.log("TODO  go to prev");
+        if (trackIndex - 1 < 0){
+            SetTrackIndex(tracks.length - 1);
+        } else {
+            SetTrackIndex(trackIndex - 1);
+        }
     }
 
     const toNextTrack = () =>{ 
-        console.log("TODO  go to next");
+        if (trackIndex < tracks.length - 1 ){
+            SetTrackIndex(trackIndex + 1);
+        } else {
+            SetTrackIndex(0);
+        }
     }
+
+    // effect //pour effectuer des effect apres le chargement de la page (c'est le changement de [isPlaying] seul qui determine l'etat de la musique)
+    useEffect(()=>{
+        if (isPlaying){
+            audioRef.current.play();
+        } else {
+            audioRef.current.pause();
+        }
+    },[isPlaying]);
+
+    useEffect(()=>{
+        return () => {
+            audioRef.current.pause();
+            clearInterval(intervalRef.current);
+        }
+    },[]);
+
+    useEffect(()=>{
+        audioRef.current.pause();
+
+        audioRef.current = new Audio(audioSrc);
+        setTrackProgress(audioRef.current.currentTime);
+        if (isReady.current){
+            audioRef.current.play();
+            setIsPlaying(true);
+            startTimer();
+        } else {
+            isReady.current = true;
+        } 
+    },[trackIndex]);
 
     return(
         <div className="audio-player">
