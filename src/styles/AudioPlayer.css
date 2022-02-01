@@ -50,3 +50,16 @@ button {
     font-weight: 300;
     margin-top: 0;
 }
+
+input[type=range]{
+    height: 5px;
+	-webkit-appearance: none;
+	width: 100%;
+	margin-bottom: 10px;
+	border-radius: 8px;
+	background: #3b7677;
+	transition: background 0.2s ease;
+	cursor: pointer;
+}
+
+

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import AudioControls from './AudioControls';
 
 import '../styles/AudioPlayer.css';
@@ -20,7 +20,7 @@ function AudioPlayer({tracks}){
 
     const { duration } = audioRef.current;
 
-    const startTimer = () => {
+    const startTimer = useCallback(() => {
         // Clear any timers already running
         clearInterval(intervalRef.current);
     
@@ -31,7 +31,7 @@ function AudioPlayer({tracks}){
             setTrackProgress(audioRef.current.currentTime);
           }
         }, [1000]);
-    };
+    },[trackIndex, intervalRef]);
     
 
     const toPrevTrack = () =>{ 
@@ -54,6 +54,7 @@ function AudioPlayer({tracks}){
     useEffect(()=>{
         if (isPlaying){
             audioRef.current.play();
+            startTimer();
         } else {
             audioRef.current.pause();
         }
@@ -80,6 +81,27 @@ function AudioPlayer({tracks}){
         } 
     },[trackIndex]);
 
+    //handle scrobbing
+    const onScrub = (value) =>{
+        clearInterval(intervalRef.current);
+
+        audioRef.current.currentTime = value;
+        setTrackProgress(audioRef.current.currentTime);
+    }
+
+    const onScrubEnd = (value) =>{
+        if (!isPlaying){
+            setIsPlaying(true);
+        }
+        startTimer();
+    }
+
+    // add style in the playback progress
+    const currentPercentage = duration ? `${(trackProgress / duration) * 100}%` : '0%';
+    const trackStyling = `
+        -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
+    `;
+
     return(
         <div className="audio-player">
             <div className="track-info">
@@ -95,6 +117,18 @@ function AudioPlayer({tracks}){
                     onPrevClick={toPrevTrack}
                     onNextClick={toNextTrack}
                     onPlayPauseClick={setIsPlaying}
+                />
+                <input 
+                    type="range"
+                    value={trackProgress}
+                    step="1"
+                    min="0"
+                    max={duration? duration : `${duration}`}
+                    className="progress"
+                    onChange={(e) =>{onScrub(e.target.value)}}
+                    onMouseUp={onScrubEnd}
+                    onKeyUp={onScrubEnd}
+                    style={{background:trackStyling}}
                 />
             </div>
         </div>
