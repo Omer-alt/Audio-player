@@ -9,14 +9,14 @@ export  const tracks = [
     artist: "Fally ipupa",
     audioSrc: fally, 
     image: monstera,
-    color: "black",
+    color: "#5f9fff",
   },
   {
     title: "Humain",
     artist: "Damso",
     audioSrc: damso, 
     image: mint,
-    color: "black",
+    color: "#ffb77a",
   }
     
 ];
