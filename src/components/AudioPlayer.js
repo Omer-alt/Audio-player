@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import AudioControls from './AudioControls';
 import Backdrop from "./Backdrop";
+import Sidebar  from "./sideBar";
 
 import '../styles/AudioPlayer.css';
 
@@ -9,6 +10,7 @@ function AudioPlayer({tracks}){
     const [trackIndex, SetTrackIndex] = useState(0);
     const [trackProgress, setTrackProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [sidebar, setSidebar] = useState(false);
     
     const {title, artist, color, image, audioSrc} = tracks[trackIndex];
 
@@ -18,20 +20,6 @@ function AudioPlayer({tracks}){
     const isReady = useRef(false);
 
     const { duration } = audioRef.current;
-
-    const startTimer = useCallback(() => {
-        // Clear any timers already running
-        clearInterval(intervalRef.current);
-    
-        intervalRef.current = setInterval(() => {
-          if (audioRef.current.ended) {
-            toNextTrack();
-          } else {
-            setTrackProgress(audioRef.current.currentTime);
-          }
-        }, [1000]);
-    },[trackIndex, intervalRef]);
-    
 
     const toPrevTrack = () =>{ 
         if (trackIndex - 1 < 0){
@@ -48,7 +36,22 @@ function AudioPlayer({tracks}){
             SetTrackIndex(0);
         }
     }
+    // change the value of Sidebar
+    const showSidebar = () => setSidebar(!sidebar);
 
+    const startTimer = useCallback(() => {
+        // Clear any timers already running
+        clearInterval(intervalRef.current);
+    
+        intervalRef.current = setInterval(() => {
+          if (audioRef.current.ended) {
+            toNextTrack();
+          } else {
+            setTrackProgress(audioRef.current.currentTime);
+          }
+        }, [1000]);
+    },[trackIndex, toNextTrack]);
+    
     // effect //pour effectuer des effect apres le chargement de la page (c'est le changement de [isPlaying] seul qui determine l'etat de la musique)
     useEffect(()=>{
         if (isPlaying){
@@ -103,6 +106,10 @@ function AudioPlayer({tracks}){
 
     return(
         <div className="audio-player">
+            <Sidebar 
+                sidebar={sidebar}
+                showSidebar={showSidebar}
+            />
             <div className="track-info">
 
                 <img className="artwork" 
