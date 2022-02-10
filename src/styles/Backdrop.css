@@ -1,5 +1,5 @@
 .color-backdrop {
-	background: linear-gradient(45deg, var(--active-color) 20%, transparent 80%) no-repeat;
+	background: #777;
   position: absolute;
   top: 0;
   left: 0;
@@ -20,4 +20,4 @@
   to {
     filter: hue-rotate(360deg);
   }
-}
+} 

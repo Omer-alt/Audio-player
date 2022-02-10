@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import AudioControls from './AudioControls';
 import Backdrop from "./Backdrop";
 import Sidebar  from "./sideBar";
+import SidebarRight from "./sidebarRight";
 
 import '../styles/AudioPlayer.css';
 
@@ -37,7 +38,7 @@ function AudioPlayer({tracks}){
         }
     }
     // change the value of Sidebar
-    const showSidebar = () => setSidebar(!sidebar);
+    const showSidebar = () => setSidebar(!sidebar) && console.log(sidebar);
 
     const startTimer = useCallback(() => {
         // Clear any timers already running
@@ -110,38 +111,45 @@ function AudioPlayer({tracks}){
                 sidebar={sidebar}
                 showSidebar={showSidebar}
             />
-            <div className="track-info">
-
-                <img className="artwork" 
-                    src={image}
-                    alt={`track artwork for ${title} by ${artist}`}
-                />
-                <h2>{title}</h2>
-                <h3>{artist}</h3>
-                <AudioControls
+            <section className="audio-section">
+                <div className="track-info">
+                    <img className="artwork" 
+                        src={image}
+                        alt={`track artwork for ${title} by ${artist}`}
+                    />
+                    <h2>{title}</h2>
+                    <h3>{artist}</h3>
+                    <AudioControls
+                        isPlaying={isPlaying}
+                        onPrevClick={toPrevTrack}
+                        onNextClick={toNextTrack}
+                        onPlayPauseClick={setIsPlaying}
+                    />
+                    <input 
+                        type="range"
+                        value={trackProgress}
+                        step="1"
+                        min="0"
+                        max={duration? duration : `${duration}`}
+                        className="progress"
+                        onChange={(e) =>{onScrub(e.target.value)}}
+                        onMouseUp={onScrubEnd}
+                        onKeyUp={onScrubEnd}
+                        style={{background:trackStyling}}
+                    />
+                </div>
+                <Backdrop
+                    trackIndex={trackIndex}
                     isPlaying={isPlaying}
-                    onPrevClick={toPrevTrack}
-                    onNextClick={toNextTrack}
-                    onPlayPauseClick={setIsPlaying}
+                    activeColor={color}
+                    sidebar={sidebar}
                 />
-                <input 
-                    type="range"
-                    value={trackProgress}
-                    step="1"
-                    min="0"
-                    max={duration? duration : `${duration}`}
-                    className="progress"
-                    onChange={(e) =>{onScrub(e.target.value)}}
-                    onMouseUp={onScrubEnd}
-                    onKeyUp={onScrubEnd}
-                    style={{background:trackStyling}}
+                <SidebarRight
+                    sidebar={sidebar}
+                    showSidebar={showSidebar}
                 />
-            </div>
-            <Backdrop
-                trackIndex={trackIndex}
-                isPlaying={isPlaying}
-                activeColor={color}
-            />
+                
+            </section>
         </div>
     );
 }
