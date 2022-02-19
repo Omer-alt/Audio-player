@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { FaVolumeUp } from "react-icons/fa"
+import styled from "styled-components";
 import AudioControls from './AudioControls';
 import Backdrop from "./Backdrop";
 import Sidebar  from "./sideBar";
@@ -12,7 +14,8 @@ function AudioPlayer({tracks}){
     const [trackProgress, setTrackProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [sidebar, setSidebar] = useState(false);
-    
+    const [speaker, setspeaker] = useState(false);
+
     const {title, artist, color, image, audioSrc} = tracks[trackIndex];
 
     //refs// pour contenir un objet modifiable initialise a la valeur en parametre 
@@ -82,7 +85,7 @@ function AudioPlayer({tracks}){
         } else {
             isReady.current = true;
         } 
-    },[trackIndex]);
+    },[audioSrc, trackIndex]);
 
     //handle scrobbing
     const onScrub = (value) =>{
@@ -98,6 +101,9 @@ function AudioPlayer({tracks}){
         }
         startTimer();
     }
+    const showspeaker = () => {
+        setspeaker(!speaker);
+    }
 
     // add style in the playback progress
     const currentPercentage = duration ? `${(trackProgress / duration) * 100}%` : '0%';
@@ -105,13 +111,28 @@ function AudioPlayer({tracks}){
         -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
     `;
 
+    //handle the volume
+    function setVolume(value){
+        audioRef.current.volume = value / 100;
+    }
+
+    //composant style pour la gestion de volume
+    const Speaker = styled.div`
+        float: right;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        bottom:${( {speaker} ) => (speaker ? "1rem":"none")};
+        positin: relative;
+    `;
+
     return(
-        <div className="audio-player">
-            <Sidebar 
-                sidebar={sidebar}
-                showSidebar={showSidebar}
-            />
-            <section className="audio-section">
+        <div className="player">
+            <div className="audio-player">
+                <Sidebar 
+                    sidebar={sidebar}
+                    showSidebar={showSidebar}
+                />
                 <div className="track-info">
                     <img className="artwork" 
                         src={image}
@@ -119,24 +140,42 @@ function AudioPlayer({tracks}){
                     />
                     <h2>{title}</h2>
                     <h3>{artist}</h3>
-                    <AudioControls
-                        isPlaying={isPlaying}
-                        onPrevClick={toPrevTrack}
-                        onNextClick={toNextTrack}
-                        onPlayPauseClick={setIsPlaying}
-                    />
-                    <input 
-                        type="range"
-                        value={trackProgress}
-                        step="1"
-                        min="0"
-                        max={duration? duration : `${duration}`}
-                        className="progress"
-                        onChange={(e) =>{onScrub(e.target.value)}}
-                        onMouseUp={onScrubEnd}
-                        onKeyUp={onScrubEnd}
-                        style={{background:trackStyling}}
-                    />
+                    <div className="track-info-setting">
+                        <AudioControls
+                            isPlaying={isPlaying}
+                            onPrevClick={toPrevTrack}
+                            onNextClick={toNextTrack}
+                            onPlayPauseClick={setIsPlaying}
+                        />
+                        <input 
+                            type="range"
+                            value={trackProgress}
+                            step="1"
+                            min="0"
+                            max={duration? duration : `${duration}`}
+                            className="progress"
+                            onChange={(e) =>{onScrub(e.target.value)}}
+                            onMouseUp={onScrubEnd}
+                            onKeyUp={onScrubEnd}
+                            style={{background:trackStyling}}
+                        />
+                        <Speaker>
+                            <FaVolumeUp 
+                                className="speaker-icon"
+                                onClick={showspeaker}
+                            />
+                            {speaker &&
+                                <input 
+                                type="range" 
+                                min="1" 
+                                max="100" 
+                                value="99" 
+                                className="volume_slider" 
+                                onChange={(e) => setVolume(e.target.value)}
+                            />     
+                            }
+                        </Speaker>
+                    </div> 
                 </div>
                 <Backdrop
                     trackIndex={trackIndex}
@@ -144,13 +183,17 @@ function AudioPlayer({tracks}){
                     activeColor={color}
                     sidebar={sidebar}
                 />
-                <SidebarRight
-                    sidebar={sidebar}
-                    showSidebar={showSidebar}
-                />
-                
-            </section>
+                <section className="audio-section">
+                    
+                    <SidebarRight
+                        sidebar={sidebar}
+                        showSidebar={showSidebar}
+                    />
+                    
+                </section>
+            </div>
         </div>
+       
     );
 }
 

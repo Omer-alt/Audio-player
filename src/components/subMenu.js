@@ -1,6 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+ import { Link,
+//          Switch,
+//          Route,
+//          BrowserRouter as Router,
+ } from "react-router-dom";
 import styled from "styled-components";
+
+// import { AboutUs, OurAim, OurVision } from "./pages/AboutUs";
+// import { Contact, Github, Twitter, Gmail } from "./pages/contact";
+// import { Search } from "./pages/Search";
+// import { Song } from "./pages/songList";
   
 const SidebarLink = styled(Link)`
   display: flex;
@@ -42,35 +51,55 @@ const DropdownLink = styled(Link)`
   
 const SubMenu = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
-  
+  const [changenav, setChangenav] = useState(false);
+
   const showSubnav = () => setSubnav(!subnav);
+  const showChangenav = () => setChangenav(!changenav);
   
   return (
-    <>
-      <SidebarLink to={item.path} 
-      onClick={item.subNav && showSubnav}>
-        <div>
-          {item.icon}
-          <SidebarLabel>{item.title}</SidebarLabel>
-        </div>
-        <div>
-          {item.subNav && subnav
-            ? item.iconOpened
-            : item.subNav
-            ? item.iconClosed
-            : null}
-        </div>
-      </SidebarLink>
-      {subnav &&
-        item.subNav.map((item, index) => {
-          return (
-            <DropdownLink to={item.path} key={index}>
+    <div>
+      {/* {changenav?( 
+        <Router>
+          <Switch>
+            <Route path="/about-us" exact component={AboutUs} />
+            <Route path="/about-us/aim" exact component={OurAim} />
+            <Route path="/about-us/vision" exact component={OurVision} />
+            <Route path="/contact" exact component={Contact} />
+            <Route path="/contact/github" exact component={Github} />
+            <Route path="/contact/twitter" exact component={Twitter} />
+            <Route path="/contact/gmail" exact component={Gmail} />
+            <Route path="/search" exact component={Search} />
+            <Route path="/song" exact component={Song} />
+          </Switch>
+        </Router>
+        
+        ):(   */}
+          <SidebarLink to={item.path} 
+          onClick={item.subNav && showSubnav && showChangenav}>
+            <div>
               {item.icon}
               <SidebarLabel>{item.title}</SidebarLabel>
-            </DropdownLink>
-          );
-        })}
-    </>
+            </div>
+            <div>
+              {item.subNav && subnav
+                ? item.iconOpened
+                : item.subNav
+                ? item.iconClosed
+                : null}
+            </div>
+          </SidebarLink>
+          {subnav?
+            item.sujsbNav.map((item, index) => {
+              return (
+                <DropdownLink to={item.path} key={index}>
+                  {item.icon}
+                  <SidebarLabel>{item.title}</SidebarLabel>
+                </DropdownLink>
+              );
+            }):null}`
+        {/* ) 
+      }  */}
+    </div>
   );
 };
   

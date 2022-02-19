@@ -25,62 +25,40 @@ export const SidebarData = [
       },
     ],
   },
-  {
-    title: "Services",
-    path: "/services",
-    icon: <IoIcons.IoIosPaper />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
   
-    subNav: [
-      {
-        title: "Service 1",
-        path: "/services/services1",
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "Service 2",
-        path: "/services/services2",
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "Service 3",
-        path: "/services/services3",
-        icon: <IoIcons.IoIosPaper />,
-      },
-    ],
-  },
   {
     title: "Contact",
     path: "/contact",
     icon: <FaIcons.FaPhone />,
-  },
-  {
-    title: "Events",
-    path: "/events",
-    icon: <FaIcons.FaEnvelopeOpenText />,
-  
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-  
     subNav: [
       {
-        title: "Event 1",
-        path: "/events/events1",
+        title: "github",
+        path: "/Contact/github",
         icon: <IoIcons.IoIosPaper />,
       },
       {
-        title: "Event 2",
-        path: "/events/events2",
+        title: "Twitter",
+        path: "/Contact/twitter",
+        icon: <IoIcons.IoIosPaper />,
+      },
+      {
+        title: "G-mail",
+        path: "/Contact/gmail",
         icon: <IoIcons.IoIosPaper />,
       },
     ],
   },
   {
-    title: "Support",
-    path: "/support",
+    title: "search Song",
+    path: "/search",
+    icon: <FaIcons.FaEnvelopeOpenText />,
+  
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+  },
+  {
+    title: " Song ",
+    path: "/song",
     icon: <IoIcons.IoMdHelpCircle />,
   },
 ];
