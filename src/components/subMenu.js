@@ -1,9 +1,9 @@
 import React, { useState } from "react";
- import { Link,
-//          Switch,
-//          Route,
-//          BrowserRouter as Router,
- } from "react-router-dom";
+//  import { Link,
+// //          Switch,
+// //          Route,
+// //          BrowserRouter as Router,
+//  } from "react-router-dom";
 import styled from "styled-components";
 
 // import { AboutUs, OurAim, OurVision } from "./pages/AboutUs";
@@ -11,7 +11,7 @@ import styled from "styled-components";
 // import { Search } from "./pages/Search";
 // import { Song } from "./pages/songList";
   
-const SidebarLink = styled(Link)`
+const SidebarLink = styled.div`
   display: flex;
   color: #e1e9fc;
   justify-content: space-between;
@@ -25,6 +25,7 @@ const SidebarLink = styled(Link)`
   &:hover {
     background: #252831;
     border-left: 4px solid green;
+    border-right: 2px solid green;
     cursor: pointer;
   }
 `;
@@ -33,7 +34,7 @@ const SidebarLabel = styled.span`
   margin-left: 16px;
 `;
   
-const DropdownLink = styled(Link)`
+const DropdownLink = styled.div`
   background: #252831;
   height: 60px;
   padding-left: 3rem;
@@ -58,47 +59,31 @@ const SubMenu = ({ item }) => {
   
   return (
     <div>
-      {/* {changenav?( 
-        <Router>
-          <Switch>
-            <Route path="/about-us" exact component={AboutUs} />
-            <Route path="/about-us/aim" exact component={OurAim} />
-            <Route path="/about-us/vision" exact component={OurVision} />
-            <Route path="/contact" exact component={Contact} />
-            <Route path="/contact/github" exact component={Github} />
-            <Route path="/contact/twitter" exact component={Twitter} />
-            <Route path="/contact/gmail" exact component={Gmail} />
-            <Route path="/search" exact component={Search} />
-            <Route path="/song" exact component={Song} />
-          </Switch>
-        </Router>
-        
-        ):(   */}
-          <SidebarLink to={item.path} 
-          onClick={item.subNav && showSubnav && showChangenav}>
-            <div>
-              {item.icon}
-              <SidebarLabel>{item.title}</SidebarLabel>
-            </div>
-            <div>
-              {item.subNav && subnav
-                ? item.iconOpened
-                : item.subNav
-                ? item.iconClosed
-                : null}
-            </div>
-          </SidebarLink>
-          {subnav?
-            item.sujsbNav.map((item, index) => {
+      <SidebarLink  onClick={item.subNav && showSubnav}>
+        <div>
+          {item.icon}
+          <SidebarLabel>{item.title}</SidebarLabel>
+        </div>
+
+        <div>
+          {item.subNav && subnav
+            ? item.iconOpened
+            : item.subNav
+            ? item.iconClosed
+            : null
+          }
+        </div>
+        </SidebarLink>
+          { subnav?
+            item.subNav.map( (item, index) => {
               return (
                 <DropdownLink to={item.path} key={index}>
                   {item.icon}
                   <SidebarLabel>{item.title}</SidebarLabel>
                 </DropdownLink>
               );
-            }):null}`
-        {/* ) 
-      }  */}
+            }):null
+          }       
     </div>
   );
 };

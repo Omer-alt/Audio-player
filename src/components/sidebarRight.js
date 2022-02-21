@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import * as AiIcons from "react-icons/ai";
 // import { Link } from "react-router-dom";
-// import { SidebarData } from "./sideBarData";
-// import SubMenu from "./subMenu";
+import { SidebarData } from "./sideBarData";
+import SubMenu from "./subMenu";
 
-import { Link,
-  Switch,
-  Route,
-  BrowserRouter as Router,
-} from "react-router-dom";
+// import { //Link,
+//   Switch,
+//   Route,
+//   BrowserRouter as Router,
+// } from "react-router-dom";
 import { AboutUs, OurAim, OurVision } from "./pages/AboutUs";
 import { Contact, Github, Twitter, Gmail } from "./pages/contact";
 import { Search } from "./pages/Search";
@@ -23,7 +23,7 @@ const SidebarNav = styled.div`
   min-width: 300px;
 `;
 const TracksNav = styled.div`
-  background: #15171c;
+  background: #252831;
   height: 50px;
   display: flex;
   justify-content: flex-end;
@@ -36,30 +36,17 @@ const TracksNav = styled.div`
 
 const SidebarRight = ({sidebar,showSidebar}) =>{
 
-    return (
-        <SidebarNav sidebar={sidebar}>
-            <TracksNav>
-                <AiIcons.AiOutlineClose onClick={showSidebar} />
-            </TracksNav>
-            {/* {SidebarData.map((item, index) => {
-              return <SubMenu item={item} key={index} />;
-            })} */}
-          <Router>
-            <Switch>
-              <Route path="/about-us" exact component={AboutUs} />
-              <Route path="/about-us/aim" exact component={OurAim} />
-              <Route path="/about-us/vision" exact component={OurVision} />
-              <Route path="/contact" exact component={Contact} />
-              <Route path="/contact/github" exact component={Github} />
-              <Route path="/contact/twitter" exact component={Twitter} />
-              <Route path="/contact/gmail" exact component={Gmail} />
-              <Route path="/search" exact component={Search} />
-              <Route path="/song" exact component={Song} />
-            </Switch>
-        </Router>
+  return (
+    <SidebarNav sidebar={sidebar}>
+      <TracksNav>
+        <AiIcons.AiOutlineClose onClick={showSidebar} />
+      </TracksNav>
 
-        </SidebarNav>
-    );
+      {SidebarData.map((item, index) => {
+        return <SubMenu item={item} key={index} />;
+      })}          
+    </SidebarNav>
+  );
 }
 
 export default SidebarRight;

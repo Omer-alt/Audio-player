@@ -3,7 +3,10 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
 import * as RiIcons from "react-icons/ri";
-  
+import * as BsIcons from "react-icons/bs";
+import { MdOutgoingMail } from "react-icons/md"
+import { GiYinYang } from "react-icons/gi";
+
 export const SidebarData = [
   {
     title: "About Us",
@@ -21,44 +24,45 @@ export const SidebarData = [
       {
         title: "Our Vision",
         path: "/about-us/vision",
-        icon: <IoIcons.IoIosPaper />,
+        icon: <GiYinYang />,
       },
     ],
-  },
-  
+  }, 
   {
     title: "Contact",
     path: "/contact",
     icon: <FaIcons.FaPhone />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
     subNav: [
       {
         title: "github",
         path: "/Contact/github",
-        icon: <IoIcons.IoIosPaper />,
-      },
-      {
-        title: "Twitter",
-        path: "/Contact/twitter",
-        icon: <IoIcons.IoIosPaper />,
+        icon: <FaIcons.FaGithub />,
       },
       {
         title: "G-mail",
         path: "/Contact/gmail",
-        icon: <IoIcons.IoIosPaper />,
+        icon: <MdOutgoingMail />,
       },
+      {
+        title: "Twitter",
+        path: "/Contact/twitter",
+        icon: <BsIcons.BsTwitter />,
+      }, 
     ],
   },
   {
     title: "search Song",
     path: "/search",
-    icon: <FaIcons.FaEnvelopeOpenText />,
+    icon: <IoIcons.IoMdSearch />,
   
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
   {
-    title: " Song ",
+    title: " Tracks list ",
     path: "/song",
-    icon: <IoIcons.IoMdHelpCircle />,
+    icon: <IoIcons.IoMdMusicalNotes/>,
   },
 ];

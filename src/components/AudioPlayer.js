@@ -110,6 +110,10 @@ function AudioPlayer({tracks}){
     const trackStyling = `
         -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
     `;
+    // add style in speaker level
+    const speakerStyling  = `
+        -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${audioRef.current.volume}, #fff), color-stop(${audioRef.current.volume}, #777))
+    `;
 
     //handle the volume
     function setVolume(value){
@@ -169,9 +173,10 @@ function AudioPlayer({tracks}){
                                 type="range" 
                                 min="1" 
                                 max="100" 
-                                value="99" 
+                                value={audioRef.current.volume } 
                                 className="volume_slider" 
                                 onChange={(e) => setVolume(e.target.value)}
+                                style={{background: speakerStyling}}
                             />     
                             }
                         </Speaker>
