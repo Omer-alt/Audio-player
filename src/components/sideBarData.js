@@ -9,6 +9,7 @@ import { GiYinYang } from "react-icons/gi";
 
 export const SidebarData = [
   {
+    id: 1,
     title: "About Us",
     path: "/about-us",
     icon: <AiIcons.AiFillHome />,
@@ -17,11 +18,13 @@ export const SidebarData = [
   
     subNav: [
       {
+        id: 2,
         title: "Our Aim",
         path: "/about-us/aim",
         icon: <IoIcons.IoIosPaper />,
       },
       {
+        id: 3,
         title: "Our Vision",
         path: "/about-us/vision",
         icon: <GiYinYang />,
@@ -29,6 +32,7 @@ export const SidebarData = [
     ],
   }, 
   {
+    id: 4,
     title: "Contact",
     path: "/contact",
     icon: <FaIcons.FaPhone />,
@@ -36,16 +40,19 @@ export const SidebarData = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
     subNav: [
       {
+        id: 5,
         title: "github",
         path: "/Contact/github",
         icon: <FaIcons.FaGithub />,
       },
       {
+        id: 6,
         title: "G-mail",
         path: "/Contact/gmail",
         icon: <MdOutgoingMail />,
       },
       {
+        id: 7,
         title: "Twitter",
         path: "/Contact/twitter",
         icon: <BsIcons.BsTwitter />,
@@ -53,6 +60,7 @@ export const SidebarData = [
     ],
   },
   {
+    id: 8,
     title: "search Song",
     path: "/search",
     icon: <IoIcons.IoMdSearch />,
@@ -61,6 +69,7 @@ export const SidebarData = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
   },
   {
+    id: 9,
     title: " Tracks list ",
     path: "/song",
     icon: <IoIcons.IoMdMusicalNotes/>,

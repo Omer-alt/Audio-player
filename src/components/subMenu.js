@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
 //  import { Link,
 // //          Switch,
@@ -49,41 +50,85 @@ const DropdownLink = styled.div`
     cursor: pointer;
   }
 `;
-  
-const SubMenu = ({ item }) => {
-  const [subnav, setSubnav] = useState(false);
-  const [changenav, setChangenav] = useState(false);
 
-  const showSubnav = () => setSubnav(!subnav);
-  const showChangenav = () => setChangenav(!changenav);
+
+
+
+const SubMenu = ({ item, setChangenav, setDisplayList, setSearch }) => {
+
+  const [subnav, setSubnav] = useState(false);
+  const showSubnav = () => {
+    setSubnav(!subnav)
+  };  
   
+  function handle (item, setDisplayList, setSearch, showSubnav ){
+
+    // if(item.subNav){
+    //   showSubnav()
+    // }
+    switch (item.id) {
+      case 1:
+        
+        showSubnav()
+        //console.log(item.subNav)
+        //showSubnav(item, setSubnav, subnav);
+        //setSubnav(true)
+        break;
+      case 4:
+        //console.log(item.subNav)
+        // showSubnav(item, setSubnav, subnav);
+        showSubnav()
+        break;
+      case 8:
+        setSearch(true)
+        break;
+      case  9:
+        setDisplayList(true)
+        break;
+       
+      default:  
+    }
+  }
+  //console.log( setDisplayList)
+  
+  /*(item.subNav && showSubnav) ||
+  ( (() => setChangenav(true)) && 
+  ( (item.id===9 && (()=> setDisplayList(true)))
+  ))*/
   return (
     <div>
-      <SidebarLink  onClick={item.subNav && showSubnav}>
-        <div>
-          {item.icon}
-          <SidebarLabel>{item.title}</SidebarLabel>
-        </div>
+      <SidebarLink  onClick={()=>
+        { setChangenav(true); 
 
-        <div>
-          {item.subNav && subnav
-            ? item.iconOpened
-            : item.subNav
-            ? item.iconClosed
-            : null
-          }
-        </div>
-        </SidebarLink>
-          { subnav?
-            item.subNav.map( (item, index) => {
-              return (
-                <DropdownLink to={item.path} key={index}>
-                  {item.icon}
-                  <SidebarLabel>{item.title}</SidebarLabel>
-                </DropdownLink>
-              );
-            }):null
-          }       
+          handle(item, setDisplayList, setSearch, showSubnav )
+        }}
+        >
+          <div >
+            {item.icon}
+            <SidebarLabel>{item.title}</SidebarLabel>
+          </div>
+
+          <div>
+            {item.subNav && subnav
+              ? item.iconOpened
+              : item.subNav
+              ? item.iconClosed
+              : null
+            }
+          </div>
+      </SidebarLink>
+
+      { subnav?
+        item.subNav.map( (item, index) => {
+        return (
+          <DropdownLink to={item.path} key={index}>
+            {item.icon}
+            <SidebarLabel>{item.title}</SidebarLabel>
+          </DropdownLink>
+        );
+        }):null
+      }
+
     </div>
   );
 };

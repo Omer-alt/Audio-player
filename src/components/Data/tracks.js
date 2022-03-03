@@ -21,8 +21,8 @@ export  const tracks = [
     color: "#ffb77a",
   },
   {
-    title: "chike",
-    artist: "Roju",
+    title: "Roju",
+    artist: "Chike",
     audioSrc: chike, 
     image: chikimg,
     color: "#FFD770",

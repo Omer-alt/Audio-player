@@ -1,0 +1,10 @@
+.tracksnav{ 
+  background: #252831;
+  height: 50px;
+  display: flex;
+  border-radius: 20px;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 10px;
+  font-size: 20px;
+};

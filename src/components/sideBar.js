@@ -10,13 +10,13 @@ const Nav = styled.div`
   align-items: center;
 `;
   
-const Sidebar = ({sidebar,showSidebar}) => {
+const Sidebar = ({sidebar, showSidebar}) => {
   
   return (
     <>
-      <IconContext.Provider value={{ color: "#fff" }}>
+      <IconContext.Provider value={{ color: "#fff" ,}}>
         <Nav>          
-          <FaIcons.FaBars onClick={showSidebar} />
+          <FaIcons.FaBars style ={{margin:'10px', cursor:'pointer'}} onClick={showSidebar} />
         </Nav>  
       </IconContext.Provider>
     </>

@@ -25,6 +25,7 @@ button {
 
 .audio-player{
     max-width: var(--width);
+    min-height: 500px;
     border-radius: 20px;
     padding: 24px;
     box-shadow: 0 28px 28px rgba(0, 0, 0, 0.5);
@@ -49,7 +50,16 @@ button {
 }
 .audio-section{
     display: flex;
-    align-items: center;
+    max-width: var(--width);
+    min-height: 500px;
+    background-color: var(--active-color);
+    border-radius: 20px;
+    box-shadow: 2px 2px 28px 2px rgba(0, 0, 0, 0.5) ;
+    margin-left: 20px;
+}
+.audio-section-right {
+    overflow-y: scroll;
+    height: 500px;
 }
 
 .title {
@@ -88,9 +98,13 @@ input[type=range]{
     bottom: 3.5rem;
     position: relative;
 }
-/* .speaker {
-    
-} */
+.player {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    max-width: 700px;
+}
 .speaker-icon {
     justify-self: flex-end;
     position: relative;

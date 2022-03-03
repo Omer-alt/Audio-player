@@ -4,7 +4,7 @@ import styled from "styled-components";
 import AudioControls from './AudioControls';
 import Backdrop from "./Backdrop";
 import Sidebar  from "./sideBar";
-import SidebarRight from "./sidebarRight";
+import RealSideRight from "./sidebarRightSwitch";
 
 import '../styles/AudioPlayer.css';
 
@@ -13,7 +13,7 @@ function AudioPlayer({tracks}){
     const [trackIndex, SetTrackIndex] = useState(0);
     const [trackProgress, setTrackProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [sidebar, setSidebar] = useState(false);
+    const [sidebar, setSidebar] = useState(false);  // afiche le cadre droit de la fenetre
     const [speaker, setspeaker] = useState(false);
 
     const {title, artist, color, image, audioSrc} = tracks[trackIndex];
@@ -40,8 +40,6 @@ function AudioPlayer({tracks}){
             SetTrackIndex(0);
         }
     }
-    // change the value of Sidebar
-    const showSidebar = () => setSidebar(!sidebar) && console.log(sidebar);
 
     const startTimer = useCallback(() => {
         // Clear any timers already running
@@ -101,6 +99,10 @@ function AudioPlayer({tracks}){
         }
         startTimer();
     }
+    //ouverture et fermeture 
+    const showSidebar = ()=>{
+        setSidebar(!sidebar)
+    }
     const showspeaker = () => {
         setspeaker(!speaker);
     }
@@ -121,7 +123,7 @@ function AudioPlayer({tracks}){
     }
 
     //composant style pour la gestion de volume
-    const Speaker = styled.div`
+    const Speaker = styled.div `
         float: right;
         display: flex;
         flex-direction: column;
@@ -142,8 +144,8 @@ function AudioPlayer({tracks}){
                         src={image}
                         alt={`track artwork for ${title} by ${artist}`}
                     />
-                    <h2>{title}</h2>
-                    <h3>{artist}</h3>
+                    <h2>{artist}</h2>
+                    <h3>{title}</h3>
                     <div className="track-info-setting">
                         <AudioControls
                             isPlaying={isPlaying}
@@ -188,15 +190,20 @@ function AudioPlayer({tracks}){
                     activeColor={color}
                     sidebar={sidebar}
                 />
-                <section className="audio-section">
-                    
-                    <SidebarRight
-                        sidebar={sidebar}
-                        showSidebar={showSidebar}
-                    />
-                    
-                </section>
             </div>
+            <section className="audio-section">
+                    
+                {sidebar &&
+                    <RealSideRight 
+                    className="audio-section-right"
+                    trackIndex={trackIndex}
+                    sidebar={sidebar}
+                    setSidebar={setSidebar}
+                    tracks={tracks}
+                />
+                }
+                    
+            </section>
         </div>
        
     );
