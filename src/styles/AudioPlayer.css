@@ -93,7 +93,7 @@ input[type=range]{
 } */
 .volume_slider{
     width: 30%;
-    transform:  rotate(90deg);
+    transform:  rotate(-90deg);
     translate: 20px 10px;
     bottom: 3.5rem;
     position: relative;

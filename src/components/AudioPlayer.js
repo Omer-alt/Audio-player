@@ -12,6 +12,7 @@ function AudioPlayer({tracks}){
     //state
     const [trackIndex, SetTrackIndex] = useState(0);
     const [trackProgress, setTrackProgress] = useState(0);
+    const [vol, setVol] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [sidebar, setSidebar] = useState(false);  // afiche le cadre droit de la fenetre
     const [speaker, setspeaker] = useState(false);
@@ -24,6 +25,8 @@ function AudioPlayer({tracks}){
     const isReady = useRef(false);
 
     const { duration } = audioRef.current;
+ 
+    
 
     const toPrevTrack = () =>{ 
         if (trackIndex - 1 < 0){
@@ -61,6 +64,7 @@ function AudioPlayer({tracks}){
             startTimer();
         } else {
             audioRef.current.pause();
+            console.log("Audio ref",audioRef)
         }
     },[isPlaying]);
 
@@ -84,6 +88,9 @@ function AudioPlayer({tracks}){
             isReady.current = true;
         } 
     },[audioSrc, trackIndex]);
+    // useEffect(()=>{
+    //    setVol(audioRef.current.volume)
+    // },[audioRef.current.volume]);
 
     //handle scrobbing
     const onScrub = (value) =>{
@@ -113,13 +120,17 @@ function AudioPlayer({tracks}){
         -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
     `;
     // add style in speaker level
+    const currentPercentageVolume = vol ? `${(audioRef.current.volume) * 100}%` : '0%';
     const speakerStyling  = `
-        -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${audioRef.current.volume}, #fff), color-stop(${audioRef.current.volume}, #777))
+        -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentageVolume}, #fff), color-stop(${audioRef.current.volume}, #777))
     `;
 
     //handle the volume
     function setVolume(value){
-        audioRef.current.volume = value / 100;
+        
+        setVol(value);
+        audioRef.current.volume = value;
+        console.log("volume",audioRef.current.volume)
     }
 
     //composant style pour la gestion de volume
@@ -172,14 +183,26 @@ function AudioPlayer({tracks}){
                             />
                             {speaker &&
                                 <input 
-                                type="range" 
-                                min="1" 
-                                max="100" 
-                                value={audioRef.current.volume } 
-                                className="volume_slider" 
-                                onChange={(e) => setVolume(e.target.value)}
-                                style={{background: speakerStyling}}
-                            />     
+                                    type="range" 
+                                    value={vol*100} 
+                                    min="15" 
+                                    max="100" 
+                                    // value={audioRef.current.volume } 
+                                    
+                                    className="volume_slider" 
+                                    onChange={(e) => setVolume(e.target.value/100)}
+                                    style={{background: speakerStyling}}
+                                /> 
+                                // <input 
+                                //     type="range" 
+                                //     min="1" 
+                                //     max="100" 
+                                //     // value={audioRef.current.volume } 
+                                //     value={max} 
+                                //     className="volume_slider" 
+                                //     onChange={(e) => setVolume(e.target.value)}
+                                //     style={{background: speakerStyling}}
+                                // />     
                             }
                         </Speaker>
                     </div> 
