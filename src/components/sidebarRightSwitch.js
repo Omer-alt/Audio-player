@@ -6,7 +6,7 @@ import { Contact, Github, Twitter, Gmail } from "./pages/contact";
 import { Search } from "./pages/Search";
 import { Song } from "./pages/songList";
 
-function RealSideRight ({sidebar, setSidebar, className, tracks, trackIndex}) {
+function RealSideRight ({sidebar, setSidebar, className, tracks, trackIndex, SetTrackIndex}) {
     const [changenav, setChangenav] = useState(false);// si un element du sidebar droit est choisi
     const [displayList, setDisplayList] = useState(false);//l'element choisi est la liste de musique
     const [search,setSearch] = useState(false); //0n veut effectuer une recherche
@@ -31,6 +31,7 @@ function RealSideRight ({sidebar, setSidebar, className, tracks, trackIndex}) {
                     <Song 
                         setDisplayList={setDisplayList} 
                         setChangenav={setChangenav} 
+                        SetTrackIndex={SetTrackIndex}
                         tracks={tracks} 
                         trackIndex={trackIndex} 
                     /> :

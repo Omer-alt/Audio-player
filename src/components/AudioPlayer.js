@@ -219,6 +219,7 @@ function AudioPlayer({tracks}){
                 {sidebar &&
                     <RealSideRight 
                     className="audio-section-right"
+                    SetTrackIndex={SetTrackIndex}
                     trackIndex={trackIndex}
                     sidebar={sidebar}
                     setSidebar={setSidebar}
